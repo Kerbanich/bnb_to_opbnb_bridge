@@ -46,7 +46,7 @@ This Python script automates bridging BNB from the **BNB Chain** to **opBNB** us
 
 4. **Run script:**
    ```bash
-   python bnb_to_opbnb_bridge.py
+   python main.py
    ```
 
 ---
@@ -106,7 +106,7 @@ This Python script automates bridging BNB from the **BNB Chain** to **opBNB** us
 
 4. **Запустите скрипт:**
    ```bash
-   python bnb_to_opbnb_bridge.py
+   python main.py
    ```
 
 ---
