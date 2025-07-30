@@ -11,17 +11,17 @@ RPC_URL = "https://bsc-dataseed.binance.org/"
 L1_BRIDGE_ADDRESS = Web3.to_checksum_address("0xF05F0e4362859c3331Cb9395CBC201E3Fa6757Ea")
 
 # --- Режим 1: Вказати суму в BNB
-SEND_MIN = 0.001
-SEND_MAX = 0.003
+SEND_MIN = 0.000064
+SEND_MAX = 0.00012
 
 # --- Режим 2: Відсоток від балансу
 USE_PERCENT_MODE = False
 PERCENT_MIN = 90
 PERCENT_MAX = 95
 
-SLEEP_MIN = 60
-SLEEP_MAX = 220
-RETRY_COUNT = 2
+SLEEP_MIN = 25
+SLEEP_MAX = 65
+RETRY_COUNT = 4
 L2_GAS_LIMIT_PARAM = 200_000
 GAS_LIMIT_FALLBACK = 300_000
 
@@ -89,6 +89,7 @@ for i, key in enumerate(private_keys, start=1):
 
         if not w3.is_connected():
             print(f"❌ {i}) RPC недоступний (proxy={proxy_url}). Пропуск.")
+            failed_log.write(f"{datetime.now()} | {key[:10]}... | RPC недоступний (proxy={proxy_url})\n")
             continue
         if proxy_url:
             print(f"🌐 Використовується проксі: {proxy_url}")
@@ -106,6 +107,7 @@ for i, key in enumerate(private_keys, start=1):
 
         if available < SEND_MIN:
             print(f"⚠️ {i}) {sender}: Недостатній баланс ({balance:.6f} BNB), пропуск.")
+            failed_log.write(f"{datetime.now()} | {sender} | Недостатній баланс: {balance:.6f} BNB\n")
             continue
 
         if USE_PERCENT_MODE:
